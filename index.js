@@ -18,16 +18,21 @@ var query = require('url').parse(req.url,true).query;
 
 	twUrl = String(query.url );
   if (twUrl.includes("twitter")){
-    test(twUrl).then(Result=>{
-var stringdata=JSON.stringify(respp);
-	if (stringdata.includes(':[{"width":null,"height":null,"dimensions":null,"url":"/"}]}')){
-
-    res.send("ERROR INVALID URL")
-  }else{
-
-    res.send(respp)
-  }
-    })
+    try {
+      test(twUrl).then(Result=>{
+        var stringdata=JSON.stringify(respp);
+          if (stringdata.includes(':[{"width":null,"height":null,"dimensions":null,"url":"/"}]}')){
+        
+            res.send("ERROR INVALID URL")
+          }else{
+        
+            res.send(respp)
+          }
+            })
+    } catch (error) {
+      res.send(error);
+    }
+ 
   }else{
 
     res.send("ERROR INVALID URL")
